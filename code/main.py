@@ -19,7 +19,7 @@ x = 100
 path = join('images', "player.png")
 player_surf = pygame.image.load(path).convert_alpha()
 player_rect = player_surf.get_frect(center = (WINDOW_WIDTH/2,WINDOW_HEIGHT/2))
-player_direction = pygame.math.Vector2(1, 0)
+player_direction = pygame.math.Vector2(1, -1)
 player_speed = 300
 
 path = join('images', "star.png")
@@ -50,7 +50,11 @@ while running:
     screen.blit(meteor_surf, meteor_rect)
     screen.blit(laser_surf, laser_rect)
     
-    # player movement    
+    # player movement
+    if player_rect.right > WINDOW_WIDTH or player_rect.left < 0:
+        player_direction.x *= -1
+    if player_rect.top < 0 or player_rect.bottom > WINDOW_HEIGHT:
+        player_direction.y *= -1    
     player_rect.center += player_direction * player_speed * dt
     screen.blit(player_surf, player_rect)
     
