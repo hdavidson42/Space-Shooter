@@ -14,13 +14,21 @@ surf = pygame.Surface((100,200))
 surf.fill("orange")
 x = 100
 
-# importing an image
+# imports
 path = join('images', "player.png")
 player_surf = pygame.image.load(path).convert_alpha()
+player_rect = player_surf.get_frect(center = (WINDOW_WIDTH/2,WINDOW_HEIGHT/2))
+player_direction = 1
 
 path = join('images', "star.png")
 star_surf = pygame.image.load(path).convert_alpha()
 star_positions = [(randint(0,WINDOW_WIDTH), randint(0,WINDOW_HEIGHT)) for i in range (20)]
+
+meteor_surf = pygame.image.load(join('images', 'meteor.png')).convert_alpha()
+meteor_rect = meteor_surf.get_frect(center = (WINDOW_WIDTH/2,WINDOW_HEIGHT/2))
+
+laser_surf = pygame.image.load(join('images', 'laser.png')).convert_alpha()
+laser_rect = laser_surf.get_frect(bottomleft = (20, WINDOW_HEIGHT-20))
 
 
 
@@ -34,10 +42,16 @@ while running:
     screen.fill("darkgray")
     for pos in star_positions:
         screen.blit(star_surf, pos)
-    x += 0.1
-    screen.blit(player_surf, (x,150))
     
-        
+    screen.blit(meteor_surf, meteor_rect)
+    screen.blit(laser_surf, laser_rect)
+    
+    # player movement    
+    player_rect.left += player_direction * 0.4
+    if player_rect.right > WINDOW_WIDTH or player_rect.left < 0:
+        player_direction *= -1
+    screen.blit(player_surf, player_rect)
+    
     pygame.display.update()
     
 pygame.quit()
