@@ -1,4 +1,5 @@
 import pygame
+from os.path import join
 
 # general setup
 pygame.init()
@@ -7,6 +8,15 @@ screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Space shooter")
 running = True
 
+# plain surface
+surf = pygame.Surface((100,200))
+surf.fill("orange")
+x = 100
+
+# importing an image
+path = join('images', "player.png")
+player_surf = pygame.image.load(path).convert_alpha()
+
 while running:
     # event loop
     for event in pygame.event.get():
@@ -14,7 +24,9 @@ while running:
             running = False   
     
     # draw the game
-    screen.fill("red")
+    screen.fill("darkgray")
+    x += 0.1
+    screen.blit(player_surf, (x,150))
     pygame.display.update()
     
 pygame.quit()
