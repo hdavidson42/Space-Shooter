@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT= 1280, 720
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("test")
+pygame.display.set_caption("Space shooter")
 running = True
 
 while running:
